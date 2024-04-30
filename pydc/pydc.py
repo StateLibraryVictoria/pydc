@@ -6,17 +6,19 @@ __version__ = '0.1'
 DC_NS = "http://purl.org/dc/elements/1.1/"
 DCTERMS_NS = "http://purl.org/dc/terms/"
 XSI_NS = "http://www.w3.org/2001/XMLSchema-instance"
-
+XMLNS_ROSETTA_NS = "http://www.exlibrisgroup.com/dps"
 
 dc_nsmap = {
     "dc": DC_NS,
     "dcterms": DCTERMS_NS,
     "xsi": XSI_NS,
+    "rosetta": XMLNS_ROSETTA_NS,
 }
 
 ET.register_namespace('dc', DC_NS)
 ET.register_namespace('dcterms', DCTERMS_NS)
 ET.register_namespace('xsi', XSI_NS)
+ET.register_namespace('rosetta', XMLNS_ROSETTA_NS)
 
 class DCRecord(ET.ElementBase):
     """For building a Dublin Core record. Handles the following namespaces:
@@ -61,6 +63,8 @@ class DCRecord(ET.ElementBase):
                 element = ET.Element("{%s}%s" % (DC_NS, tag_name))
             elif tag_prefix == "dcterms":
                 element = ET.Element("{%s}%s" % (DCTERMS_NS, tag_name))
+            elif tag_prefix == "rosetta":
+                element = ET.Element("{%s}%s" % (XMLNS_ROSETTA_NS, tag_name))
             if attribute_prefix == "xsi":
                 element.set("{%s}%s" % (XSI_NS, attribute_name), attribute_value)
             element.text = value
@@ -71,6 +75,8 @@ class DCRecord(ET.ElementBase):
                 element = ET.Element("{%s}%s" % (DC_NS, tag_name))
             elif tag_prefix == "dcterms":
                 element = ET.Element("{%s}%s" % (DCTERMS_NS, tag_name))
+            elif tag_prefix == "rosetta":
+                element = ET.Element("{%s}%s" % (XMLNS_ROSETTA_NS, tag_name))
             element.set("%s" % (attribute_name))
             element.text = value
             self.append(element)
@@ -79,5 +85,7 @@ class DCRecord(ET.ElementBase):
                 element = ET.Element("{%s}%s" % (DC_NS, tag_name))
             elif tag_prefix == "dcterms":
                 element = ET.Element("{%s}%s" % (DCTERMS_NS, tag_name))
+            elif tag_prefix == "rosetta":
+                element = ET.Element("{%s}%s" % (XMLNS_ROSETTA_NS, tag_name))
             element.text = value
             self.append(element)
